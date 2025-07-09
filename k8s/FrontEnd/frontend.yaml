@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: to-do-front
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        app.kubernetes.io/name: myfront
+    spec:
+      containers:
+      - name: nginx
+        image: bagato220/todofront:latest
+        ports:
+        - containerPort: 3000
+          name: frontend
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://backend.com/api/tasks"
