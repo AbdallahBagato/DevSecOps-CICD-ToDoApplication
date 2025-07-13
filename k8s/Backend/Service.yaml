@@ -9,3 +9,4 @@ spec:
   ports:
     - port: 3500
       targetPort: 3500
+      name: backend-port
