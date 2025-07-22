@@ -23,4 +23,4 @@ spec:
           name: frontend
         env:
         - name: REACT_APP_BACKEND_URL
-          value: "http://k8s-default-minimali-b709d9a26a-2112781503.us-east-1.elb.amazonaws.com/api/tasks"
+          value: "http://k8s-default-minimali-b709d9a26a-1425097559.us-east-1.elb.amazonaws.com/api/tasks"
