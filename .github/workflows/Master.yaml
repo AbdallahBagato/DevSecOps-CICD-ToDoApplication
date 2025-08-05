@@ -155,7 +155,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=AbdallahBagato_End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
-            -Dsonar.organization=AbdallahBagato
+            -Dsonar.organization=abdallahBagato
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
