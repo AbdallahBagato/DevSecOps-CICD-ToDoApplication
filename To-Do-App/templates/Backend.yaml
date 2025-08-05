@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    tier: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      tier: backend
+  template:
+    metadata:
+      labels:
+        tier: backend
+        app.kubernetes.io/name: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: {{ .values.backend.image.repository }}:{{ .values.backend.image.tag }}
+        ports:
+        - containerPort: 3500
+          name: backend-port
+        env:
+        - name: MONGO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: mongo-username
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:   
+              name: db-secret
+              key: mongo-password
+        - name: MONGO_CONN_STR
+          value: mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@mongo-db:27017/mydb?authSource=admin
+        - name: USE_DB_AUTH
+          value: "true"

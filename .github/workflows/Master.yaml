@@ -142,4 +142,24 @@ jobs:
       - name: Push the image
         run: |
           docker push bagato220/todoappbackend:${{ github.run_id }}
-          
+
+
+  CD_GitOps:
+    runs-on: ubuntu-latest
+    needs: [CI_UI_Build, CI_Backend_Build]
+    steps:
+      - name: checkout the Repository
+        uses: actions/checkout@v4
+
+      - name: Change in Helm Chart
+        run: | 
+          sed -i "/^frontend:/,/replicaCount:/s/tag: .*/tag: ${{ github.run_id }}/" ./To-Do-App/values.yaml
+          sed -i "/^backend:/,/replicaCount:/s/tag: .*/tag: ${{ github.run_id }}/" ./To-Do-App/values.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "${{ secrets.MAIL }}"
+          git config --local user.name "abdallahbagato"
+          git add .
+          git commit -m "Update deployment files with new image tags"
+          git push origin main

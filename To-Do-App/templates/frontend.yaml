@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: to-do-front
+  labels:
+    app: frontend
+spec:
+  replicas: {{ .values.frontend.replicaCount}}
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        app.kubernetes.io/name: myfront
+    spec:
+      containers:
+      - name: nginx
+        image: {{ .values.frontend.image.repository }}:{{ .values.frontend.image.tag }}
+        ports:
+        - containerPort: 3000
+          name: frontend
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://k8s-default-minimali-b709d9a26a-1425097559.us-east-1.elb.amazonaws.com/api/tasks"

@@ -1,0 +1,18 @@
+frontend:
+  image:
+    repository: bagato220/todoappfrontend
+    tag: latest
+  replicaCount: 1
+
+backend:
+  image:
+    repository: bagato220/todoappbackend
+    tag: latest
+  replicaCount: 1
+
+
+database:
+  image:
+    repository: mongo
+    tag: 6.0.25-rc0
+  replicaCount: 1
