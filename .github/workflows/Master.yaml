@@ -20,6 +20,14 @@ jobs:
         with: 
           node-version: '18'
 
+      - name: Cauche npm Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Install Dependencies
         working-directory: ./Application-Code/frontend
         run: npm install 
@@ -32,5 +40,8 @@ jobs:
       - name: Run Eslint
         working-directory: ./Application-Code/frontend
         run: npm run lint
+
+      - name: Test Application
+        run: npm test -- --coverage
 
       
