@@ -162,4 +162,4 @@ jobs:
           git config --local user.name "abdallahbagato"
           git add .
           git commit -m "Update deployment files with new image tags"
-          git push origin main
+          git push origin master
