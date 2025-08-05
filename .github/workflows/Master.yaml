@@ -40,6 +40,12 @@ jobs:
         working-directory: ./Application-Code/frontend
         run: npm test -- --coverage
 
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
   CI_UI_Build:
     runs-on: ubuntu-latest
     needs: CI_Frontend
