@@ -154,8 +154,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
-            -Dsonar.organization=Abdallah Bagato
+            -Dsonar.projectKey=AbdallahBagato_End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
+            -Dsonar.organization=AbdallahBagato
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
