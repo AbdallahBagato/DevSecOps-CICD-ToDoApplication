@@ -1,6 +1,4 @@
-data "aws_iam_role" "Labrole" {
-  name = "LabRole"  # <- Replace with your actual role name
-}
+
 resource "aws_eks_cluster" "eks" {
   name = var.cluster_name
 
@@ -9,8 +7,7 @@ resource "aws_eks_cluster" "eks" {
         bootstrap_cluster_creator_admin_permissions = var.admin_acess
   }
 
-  # role_arn = aws_iam_role.cluster.arn
-  role_arn = data.aws_iam_role.Labrole.arn
+  role_arn = aws_iam_role.cluster.arn
   version  = var.cluster_version
 
   vpc_config {
@@ -19,13 +16,13 @@ resource "aws_eks_cluster" "eks" {
       var.public_subnet_ids
     )
   }
-    #depends_on = [ 
-    #    aws_iam_role_policy_attachment.cluster_policy 
-    #]
+    depends_on = [ 
+        aws_iam_role_policy_attachment.cluster_policy 
+    ]
 }
 
 ## Create the IAM Role for the EKS cluster
-/*
+
 resource "aws_iam_role" "cluster" {
   name = "${var.cluster_name}-eks-cluster-role"
   assume_role_policy = jsonencode({
@@ -49,12 +46,10 @@ resource "aws_iam_role_policy_attachment" "cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.cluster.name
 }
-*/
 resource "aws_eks_node_group" "node-group" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "${var.cluster_name}-node_group"
-  # node_role_arn   = aws_iam_role.node.arn
-  node_role_arn = data.aws_iam_role.Labrole.arn
+  node_role_arn   = aws_iam_role.node.arn
 
   capacity_type = var.capacity_type
   instance_types = var.instance_types
@@ -68,15 +63,15 @@ resource "aws_eks_node_group" "node-group" {
   update_config {
     max_unavailable = 1
   }
-/*
+
   depends_on = [
     aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
   ]
-*/
+
 }
-/*
+
 resource "aws_iam_role" "node" {
   name = "${var.cluster_name}-eks-node-roles"
   assume_role_policy = jsonencode({
@@ -90,6 +85,7 @@ resource "aws_iam_role" "node" {
     Version = "2012-10-17"
   })
 }
+
 resource "aws_iam_role_policy_attachment" "node-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.node.name
@@ -104,4 +100,3 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.node.name
 }
-*/
