@@ -42,6 +42,7 @@ jobs:
         run: npm run lint
 
       - name: Test Application
+        working-directory: ./Application-Code/frontend
         run: npm test -- --coverage
 
       
