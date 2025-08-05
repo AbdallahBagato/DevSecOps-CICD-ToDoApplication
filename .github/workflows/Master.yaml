@@ -75,27 +75,27 @@ jobs:
         run: | 
           docker push bagato220/todoappfrontend:${{ github.run_id }}
       
-    CI_Backend:
-      runs-on: ubuntu-latest
-      steps:
-        - name: checkout the Repository
-          uses: actions/checkout@v4
+  CI_Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the Repository
+        uses: actions/checkout@v4
 
-        - name: Install JavaScripts
-          uses: actions/setup-node@v4
-          with: 
-            node-version: '18'
+      - name: Install JavaScripts
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '18'
 
-        - name: Install Dependencies
-          working-directory: ./Application-Code/backend
-          run: npm install 
+      - name: Install Dependencies
+        working-directory: ./Application-Code/backend
+        run: npm install 
           
-        - name: Install Eslint
-          run: |
-            npm install --save-dev eslint
+      - name: Install Eslint
+        run: |
+          npm install --save-dev eslint
 
-        - name: Run Eslint
-          working-directory: ./Application-Code/backend
-          run: npm run lint
+      - name: Run Eslint
+        working-directory: ./Application-Code/backend
+        run: npm run lint
 
-          
+
