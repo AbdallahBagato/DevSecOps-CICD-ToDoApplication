@@ -142,11 +142,26 @@ jobs:
       - name: Push the image
         run: |
           docker push bagato220/todoappbackend:${{ github.run_id }}
+          
+  SonarQube:
+    runs-on: ubuntu-latest
+    needs: [ CI_UI_Build, CI_Backend_Build ]
+    steps:
+      - name: checkout the Repository
+        uses: actions/checkout@v4
 
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@v1.5.0
+        with:
+          args: >
+            -Dsonar.projectKey=End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
+            -Dsonar.organization=Abdallah Bagato
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   CD_GitOps:
     runs-on: ubuntu-latest
-    needs: [CI_UI_Build, CI_Backend_Build]
+    needs: [ SonarQube ]
     steps:
       - name: checkout the Repository
         uses: actions/checkout@v4
