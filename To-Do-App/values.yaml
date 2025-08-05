@@ -1,13 +1,13 @@
 frontend:
   image:
     repository: bagato220/todoappfrontend
-    tag: 16745958200
+    tag: 16749843692
   replicaCount: 1
 
 backend:
   image:
     repository: bagato220/todoappbackend
-    tag: 16745958200
+    tag: 16749843692
   replicaCount: 1
 
 
