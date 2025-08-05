@@ -1,5 +1,5 @@
 name: DevSecOps Workflow 
-run-name: DevSecOps Workflow run by ${{ github.actor }} and triggered by ${{ github.event_name }}
+run-name: DevSecOps Workflow have id ${{ github.run_id }} and triggered by ${{ github.event_name }}
 on:
   pull_request:
     branches:
@@ -34,7 +34,6 @@ jobs:
 
       - name: Install Eslint
         run: |
-          npm install eslint --save-dev
           npm install --save-dev typescript
 
       - name: Run Eslint
@@ -44,5 +43,3 @@ jobs:
       - name: Test Application
         working-directory: ./Application-Code/frontend
         run: npm test -- --coverage
-
-      
