@@ -9,7 +9,7 @@ on:
       - master
   
 jobs:
-  CI_Backend:
+  CI_Frontend:
     runs-on: ubuntu-latest
     steps:
       - name: checkout The Repository
@@ -21,6 +21,7 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
+        working-directory: ./Application-Code/frontend
         run: npm install 
 
       - name: Install Eslint
