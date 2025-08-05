@@ -28,6 +28,7 @@ jobs:
         run: npm install eslint --save-dev
 
       - name: Run Eslint
+        working-directory: ./Application-Code/frontend
         run: npm run lint
 
       
