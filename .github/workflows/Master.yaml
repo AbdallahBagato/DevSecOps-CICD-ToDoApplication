@@ -3,10 +3,10 @@ run-name: DevSecOps Workflow run by ${{ github.actor }} and triggered by ${{ git
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
   
 jobs:
   CI_Backend:
