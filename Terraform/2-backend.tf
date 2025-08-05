@@ -1,9 +1,10 @@
 terraform {
   backend "s3" {
-    bucket = "iti-tf-bucket"
+    bucket = "bagato-devsecops"
     key    = "statefile/terraform.tfstate"
     region = "us-east-1"
-    dynamodb_table = "eksdb"
+    ## dynamodb_table = "eksdb" depreacted 
+    use_lockfile = true
     encrypt = true
   }
 }

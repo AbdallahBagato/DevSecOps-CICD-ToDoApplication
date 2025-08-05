@@ -1,0 +1,32 @@
+name: DevSecOps Workflow 
+run-name: DevSecOps Workflow run by ${{ github.actor }} and triggered by ${{ github.event_name }}
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  
+jobs:
+  CI_Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout The Repository
+        uses: actions/checkout@v4
+
+      - name: Install JavaScripts
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install 
+
+      - name: Install Eslint
+        run: npm install eslint --save-dev
+
+      - name: Run Eslint
+        run: npm run lint
+
+      
