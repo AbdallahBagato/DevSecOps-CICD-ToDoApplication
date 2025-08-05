@@ -25,7 +25,9 @@ jobs:
         run: npm install 
 
       - name: Install Eslint
-        run: npm install eslint --save-dev
+        run: |
+          npm install eslint --save-dev
+          npm install --save-dev typescript
 
       - name: Run Eslint
         working-directory: ./Application-Code/frontend
