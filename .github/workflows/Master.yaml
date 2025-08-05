@@ -98,4 +98,12 @@ jobs:
         working-directory: ./Application-Code/backend
         run: npm run lint
 
+      - name: Install Jest
+        run: | 
+          npm install --save-dev jest supertest
+          npm install --save-dev mongodb-memory-server
 
+      - name: Test Application
+        working-directory: ./Application-Code/backend
+        run: |
+          npm test
