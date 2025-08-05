@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "./App";
 import * as taskServices from "./services/taskServices";
+import '@testing-library/jest-dom';
+
 
 // Mock the taskServices functions
 jest.mock("./services/taskServices");
