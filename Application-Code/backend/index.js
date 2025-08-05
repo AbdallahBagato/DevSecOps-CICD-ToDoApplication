@@ -3,7 +3,7 @@ const connection = require("./db");
 const cors = require("cors");
 const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 connection();
 
@@ -13,13 +13,13 @@ app.use(cors());
 // Health check endpoints
 
 // Basic health check to see if the server is running
-app.get('/healthz', (req, res) => {
-    res.status(200).send('Healthy');
+app.get("/healthz", (req, res) => {
+    res.status(200).send("Healthy");
 });
 
 let lastReadyState = null;  
 // Readiness check to see if the server is ready to serve requests
-app.get('/ready', (req, res) => {
+app.get("/ready:", (req, res) => {
     // Here you can add logic to check database connection or other dependencies
     const isDbConnected = mongoose.connection.readyState === 1;
     if (isDbConnected !== lastReadyState) {
@@ -28,16 +28,16 @@ app.get('/ready', (req, res) => {
     }
     
     if (isDbConnected) {
-        res.status(200).send('Ready');
+        res.status(200).send("Ready");
     } else {
-        res.status(503).send('Not Ready');
+        res.status(503).send("Not Ready");
     }
 });
 
 // Startup check to ensure the server has started correctly
-app.get('/started', (req, res) => {
+app.get("/started", (req, res) => {
     // Assuming the server has started correctly if this endpoint is reachable
-    res.status(200).send('Started');
+    res.status(200).send("Started");
 });
 
 app.use("/api/tasks", tasks);
